@@ -32,6 +32,7 @@ import LandingScreen from './components/auth/Landing.js'
 import RegisterScreen from './components/auth/Register.js'
 import LoginScreen from './components/auth/Login.js'
 import MainScreen from './components/Main.js'
+import CameraScreen from './components/main/Camera.js';
 
 const Stack = createStackNavigator();
 
@@ -98,7 +99,8 @@ export class App extends Component {
             cardStyle : { backgroundColor: 'white' }
           }}
           >
-            <Stack.Screen name='Main' component={ MainScreen } options = {{ headerShown: false }} />
+            <Stack.Screen name='Back' component={ MainScreen } options = {{ headerShown: false }} />
+            <Stack.Screen name='Camera' component={ CameraScreen } options = {{ headerShown: true }} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

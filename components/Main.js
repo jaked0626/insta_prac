@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 import { fetchUser } from '../redux/actions/index';
 
 // load components in main/
-import CameraScreen from './main/Camera.js';
+// camera found in App because it is a new screen
 import FeedScreen from './main/Feed.js';
 import GraphScreen from './main/Graph.js';
 import ProfileScreen from './main/Profile.js';
@@ -23,6 +23,10 @@ import ScoreboardScreen from './main/Scoreboard.js';
 
 // create bottom navigation tab
 const Tab = createBottomTabNavigator();
+
+const EmptyScreen = () => {
+    return(null); // placeholder for camera
+}
 
 export class Main extends Component {
     componentDidMount(){
@@ -41,43 +45,50 @@ export class Main extends Component {
 
         return (
             <Tab.Navigator
-            initialRouteName='Graph'
-            screenOptions={{
-                tabBarShowLabel : false,
-                tabBarActiveTintColor : '#A3E4D7',
-                tabBarActiveBackgroundColor: "#808B96",
-                tabBarInactiveBackgroundColor: '#808B96',
-                tabBarInactiveTintColor: 'white',
-            }}>
+                initialRouteName='Graph'
+                labeled = { false }
+                screenOptions={{
+                    tabBarShowLabel : false,
+                    tabBarActiveTintColor : '#A3E4D7',
+                    tabBarActiveBackgroundColor: "#808B96",
+                    tabBarInactiveBackgroundColor: '#808B96',
+                    tabBarInactiveTintColor: 'white',
+                }}>
                 <Tab.Screen name="Feed" component={FeedScreen}
-                options = {{
-                    tabBarIcon: ({ color, size }) => (
-                        <Fontisto name = 'picture' color = { color } size = { 20 } />
-                    )
+                    options = {{
+                        tabBarIcon: ({ color, size }) => (
+                            <Fontisto name = 'picture' color = { color } size = { 20 } />
+                        )
                 }} />
                 <Tab.Screen name="Graph" component={GraphScreen}
-                options = {{
-                    tabBarIcon: ({ color, size }) => (
-                        <Entypo name = 'line-graph' color = { color } size = { 23 } />
-                    )
+                    options = {{
+                        tabBarIcon: ({ color, size }) => (
+                            <Entypo name = 'line-graph' color = { color } size = { 23 } />
+                        )
                 }} />
-                <Tab.Screen name="Camera" component={CameraScreen}
-                options = {{
-                    tabBarIcon: ({ color, size }) => (
-                        <SimpleLineIcons name = 'camera' color = { color } size = { 33 } />
-                    )
+                <Tab.Screen name="CameraContainer" component={EmptyScreen}
+                    listeners = {({ navigation }) => ({
+                        tabPress: event => {
+                            event.preventDefault();
+                            navigation.navigate("Camera")
+                        } // https://www.youtube.com/watch?v=gPaBicMaib4&ab_channel=PradipDebnath use to enhance camera tab
+                    })}
+                    options = {{
+                        tabBarIcon: ({ color, size }) => (
+                            <SimpleLineIcons name = 'camera' color = { color } size = { 33 } />
+                        )
                 }} />
                 <Tab.Screen name="Scoreboard" component={ScoreboardScreen}
-                options = {{
-                    tabBarIcon: ({ color, size }) => (
-                        <FontAwesome5 name = 'medal' color = { color } size = { 22 } />
-                    )
+                    options = {{
+                        tabBarIcon: ({ color, size }) => (
+                            <FontAwesome5 name = 'medal' color = { color } size = { 22 } />
+                        )
                 }} />
                 <Tab.Screen name="Profile" component={ProfileScreen}
-                options = {{
-                    tabBarIcon: ({ color, size }) => (
-                        <Ionicons name = 'person-circle' color = { color } size = { 27 } />
-                    )
+                    options = {{
+                        tabBarIcon: ({ color, size }) => (
+                            <Ionicons name = 'person-circle' color = { color } size = { 27 } />
+                        )
                 }} />
             </Tab.Navigator>
                     )

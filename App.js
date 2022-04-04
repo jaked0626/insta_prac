@@ -10,7 +10,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// USE ENVIRONMENT VARIABLES TO HIDE THIS  
 const firebaseConfig = {
   apiKey: "AIzaSyD-O5ZeiXbDwa1R7PvxH2i7n4kTBiyvqEY",
   authDomain: "instagram-dev-7bef4.firebaseapp.com",
@@ -92,7 +91,16 @@ export class App extends Component {
     return(
       // wrap with provider to enable redux
       <Provider store = {store}>
-        <MainScreen />
+        <NavigationContainer>
+          <Stack.Navigator 
+          intialRouteName='Main'
+          screenOptions = {{
+            cardStyle : { backgroundColor: 'white' }
+          }}
+          >
+            <Stack.Screen name='Main' component={ MainScreen } options = {{ headerShown: false }} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
     );
   }
